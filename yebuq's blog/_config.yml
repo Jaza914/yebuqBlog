@@ -71,6 +71,7 @@ deploy:
   type: git
   #elfwalk改为你的github用户名
   repository: https://github.com/yebuq/yebuq.github.io.git
+  # repository: https://yebuq:Ling91226only@github.com:yebuq/yebuq.github.io.git
   branch: master
 
 jsonContent:

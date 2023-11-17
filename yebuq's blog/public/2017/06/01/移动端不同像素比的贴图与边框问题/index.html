@@ -202,9 +202,9 @@ var _hmt = _hmt || [];
       
         <p>摘要:<br>    　　开发过移动端的都知道，移动端的设备像素分为物理像素跟设备像素，而且不同型号的设备的物理像素的还不一样，比如iphone6的物理像素就是设备像素的两倍，而iphone6Plus的物理像素则是设备像素的三倍。这就造成了我们在css中所使用的到的px这种相对单位的在移动端的浏览器解析中有了不一样的表现。那为了让我们的项目在不同设备中的表现区别不大，就需要我们做一些工作了。下面我来为大家介绍几个在移动端开发中我们经常遇到的问题跟几角方案。<br>    <div align="center" style="overflow:hidden"><img src="../../../../img/2017-6/20170601123154.jpg" style="display:inline-block;vertical-align:top"></div><br><a id="more"></a><br>正文:</p>
 <p></p><h1 style="color:#d9534f;">添加一像素边框</h1><br>　　在css样式中我们经常会遇见需要给一个div下面加上1px的底部边框的需求。这个通常我们只需要在给div加上一个border-bottom 1px就可以了。但是在移动端中一个1px就出问题了，你会发现在手机端上面这个1px会比平常要宽。这就是因为设备物理像素跟设备像素比的问题了。比如iphone6下这个1px会变成2px，而iphone6Plus下这个1px则会变成3px。那么我们可以通过@media给不同的设备写一下兼容。<p></p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.div</span>&#123;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.div</span>:after&#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">content</span>:<span class="string">''</span>;</span><br><span class="line">    <span class="attribute">border-top</span>:<span class="number">1px</span> solid <span class="number">#000</span>;</span><br><span class="line">&#125;</span><br><span class="line"> @<span class="keyword">media</span>(-webkit-min-device-pixel-ratio:<span class="number">1.5</span>),(min-device-pixel-ratio:<span class="number">1.5</span>)&#123;</span><br><span class="line">    <span class="selector-class">.div</span>:after</span><br><span class="line">      <span class="attribute">transform</span>: scaleY(<span class="number">0.7</span>);</span><br><span class="line">      -webkit-<span class="attribute">transform</span>: scaleY(<span class="number">0.7</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  @<span class="keyword">media</span>(-webkit-min-device-pixel-ratio:<span class="number">2</span>),(min-device-pixel-ratio:<span class="number">2</span>)&#123;</span><br><span class="line">    <span class="selector-class">.div</span>:after&#123;</span><br><span class="line">      <span class="attribute">transform</span>: scaleY(<span class="number">0.5</span>);</span><br><span class="line">      -webkit-<span class="attribute">transform</span>: scaleY(<span class="number">0.5</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  @<span class="keyword">media</span>(-webkit-min-device-pixel-ratio:<span class="number">3</span>),(min-device-pixel-ratio:<span class="number">3</span>)&#123;</span><br><span class="line">    <span class="selector-class">.div</span>:after&#123;</span><br><span class="line">      <span class="attribute">transform</span>: scaleY(<span class="number">0.3</span>);</span><br><span class="line">      -webkit-<span class="attribute">transform</span>: scaleY(<span class="number">0.3</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.div</span>&#123;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.div</span><span class="selector-pseudo">:after</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">content</span>:<span class="string">''</span>;</span><br><span class="line">    <span class="attribute">border-top</span>:<span class="number">1px</span> solid <span class="number">#000</span>;</span><br><span class="line">&#125;</span><br><span class="line"> <span class="keyword">@media</span>(-webkit-min-device-pixel-ratio:<span class="number">1.5</span>),(min-device-pixel-ratio:<span class="number">1.5</span>)&#123;</span><br><span class="line">    <span class="selector-class">.div</span><span class="selector-pseudo">:after</span></span><br><span class="line">      <span class="attribute">transform</span>: scaleY(<span class="number">0.7</span>);</span><br><span class="line">      -webkit-<span class="attribute">transform</span>: scaleY(<span class="number">0.7</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">@media</span>(-webkit-min-device-pixel-ratio:<span class="number">2</span>),(min-device-pixel-ratio:<span class="number">2</span>)&#123;</span><br><span class="line">    <span class="selector-class">.div</span><span class="selector-pseudo">:after</span>&#123;</span><br><span class="line">      <span class="attribute">transform</span>: scaleY(<span class="number">0.5</span>);</span><br><span class="line">      -webkit-<span class="attribute">transform</span>: scaleY(<span class="number">0.5</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">@media</span>(-webkit-min-device-pixel-ratio:<span class="number">3</span>),(min-device-pixel-ratio:<span class="number">3</span>)&#123;</span><br><span class="line">    <span class="selector-class">.div</span><span class="selector-pseudo">:after</span>&#123;</span><br><span class="line">      <span class="attribute">transform</span>: scaleY(<span class="number">0.3</span>);</span><br><span class="line">      -webkit-<span class="attribute">transform</span>: scaleY(<span class="number">0.3</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这样我们给需要加border的元素一个伪类并给这个伪类绝对定位让他贴附在该元素的底部，然后给这个伪类一个border-top 1px，然后分别在像素比为1.5的设备下让线条缩放0.7倍，像素比为2.0的设备下缩放0.5倍，像素比为3.0的设备下缩放0.3倍，这样换算下来就都差不多是1px的样子了。</p>
-<p></p><h1 style="color:#d9534f;">图片的兼容</h1><br>不知道大家有过这样的经历没有，一半在移动端开发的时候ui给我们的设计图一般都会两套不同的大小。比如一个图片叫picture@2x.png，那么相对应的一定就会有一个picture@3x.png，有没有想过这是为什么呢？其实这也是为了适配我们在不同像素比的设备，在不同像素比的设备中使用不同大小的图标以防图片虚化，这是兼容的图片的一个常用思路。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.span</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>:inline-block;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(picture@2x.png);</span><br><span class="line">    <span class="attribute">background-size</span>: <span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> (-webkit-min-device-pixel-ratio:<span class="number">3</span>),(min-device-pixel-ratio:<span class="number">3</span>)&#123;</span><br><span class="line">    <span class="selector-class">.span</span>&#123;</span><br><span class="line">        <span class="attribute">background-image</span>: <span class="built_in">url</span>(picture@3x.png);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p></p>
+<p></p><h1 style="color:#d9534f;">图片的兼容</h1><br>不知道大家有过这样的经历没有，一半在移动端开发的时候ui给我们的设计图一般都会两套不同的大小。比如一个图片叫<a href="mailto:picture@2x.png" target="_blank" rel="noopener">picture@2x.png</a>，那么相对应的一定就会有一个<a href="mailto:picture@3x.png" target="_blank" rel="noopener">picture@3x.png</a>，有没有想过这是为什么呢？其实这也是为了适配我们在不同像素比的设备，在不同像素比的设备中使用不同大小的图标以防图片虚化，这是兼容的图片的一个常用思路。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.span</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>:inline-block;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(picture@<span class="number">2</span>x.png);</span><br><span class="line">    <span class="attribute">background-size</span>: <span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">-webkit-min-device-pixel-ratio:</span><span class="number">3</span>),(<span class="attribute">min-device-pixel-ratio:</span><span class="number">3</span>)&#123;</span><br><span class="line">    <span class="selector-class">.span</span>&#123;</span><br><span class="line">        <span class="attribute">background-image</span>: <span class="built_in">url</span>(picture@<span class="number">3</span>x.png);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p></p>
 <p>这里还有一个需要我们注意的地方，我们知道我们为了网站优化减少http请求次数，通常都把一些图标集合起来做成一个大的精灵图，这时候可能需要我们改变的就是图片的位置background-position。其实除了这种方法我们还可以把这些图片转成base64格式，让其已代码的形式存在于css中，这样既减少了http请求次数，还方便我们的项目构造，真的很方便实用，像vue的脚手架工具vue-cli就会自动为我们把一些小图片打包到css当中，非常方便，当然这些都是题外话了。</p>
 <p>　　还有今天是儿童节，祝大家永远18睡,还有哦，文章开头的图片是我家新成员 咋地了，哈哈<del>~</del>~下次会专门更新篇博客来重大介绍一下我家新成员o(^▽^)o<del>~</del><del>~</del></p>
 <div align="center" style="overflow:hidden"><br>    <img src="../../../../img/2017-6/20170601115946.jpg" width="300" height="300" style="display:inline-block;float:left;vertical-align:top"><img src="../../../../img/2017-6/20170601115955.jpg" width="300" height="300" style="display:inline-block;float:left;vertical-align:top"><img src="../../../../img/2017-6/20170601120000.jpg" width="300" height="300" style="display:inline-block;float:left;vertical-align:top"><img src="../../../../img/2017-6/20170601120005.jpg" width="300" height="300" style="display:inline-block;float:left;vertical-align:top"><img src="../../../../img/2017-6/20170601120010.jpg" width="300" height="300" style="display:inline-block;float:left;vertical-align:top"><img src="../../../../img/2017-6/20170601120014.jpg" width="300" height="300" style="display:inline-block;float:left;vertical-align:top"><img src="../../../../img/2017-6/20170601120019.jpg" width="300" height="300" style="display:inline-block;float:left;vertical-align:top"><img src="../../../../img/2017-6/20170601120023.jpg" width="300" height="300" style="display:inline-block;float:left;vertical-align:top"><img src="../../../../img/2017-6/20170601120029.jpg" width="300" height="300" style="display:inline-block;float:left;vertical-align:top"><br>    </div>
@@ -506,6 +506,22 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">eclipse</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">跨域</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">开篇之作</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">啦啦啦</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文件上传</a>
               </li>
              
@@ -522,14 +538,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">开篇之作</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">啦啦啦</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
@@ -538,23 +546,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日常</a>
+                <a href="javascript:void(0)" class="js-tag color5">构造函数</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">业务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">抓包</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">抓包charles</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -566,19 +562,27 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">日常</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">小心情</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">eclipse</a>
+                <a href="javascript:void(0)" class="js-tag color4">聊天室</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">跨域</a>
+                <a href="javascript:void(0)" class="js-tag color3">抓包</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">构造函数</a>
+                <a href="javascript:void(0)" class="js-tag color5">抓包charles</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -591,10 +595,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">聊天室</a>
               </li>
             
             <div class="clearfix"></div>
